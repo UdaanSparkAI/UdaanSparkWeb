@@ -65,12 +65,13 @@ export default function PrivacyPage() {
             version, and app version for crash reporting and compatibility.
           </p>
           <p>
-            <strong>Subscription Information</strong>: When you start a free trial or purchase a
-            YUKTA Premium subscription, we store your entitlement status — the plan, its expiry
-            date, whether the trial has been used, and the Google Play purchase token and order ID
-            — linked to your account. This is required to grant access and to enforce the one-trial
-            limit. <strong>We never receive or store your card, UPI, or bank details</strong>; all
-            payments are handled entirely by Google Play.
+            <strong>Subscription Information</strong>: When you start a free trial or purchase
+            YUKTA Premium, we store your entitlement status — the plan, its expiry date, whether
+            the trial has been used, and the payment reference from the provider (a Google Play
+            purchase token and order ID, or a Razorpay order and payment ID for purchases made on
+            our website) — linked to your account. This is required to grant access and to enforce
+            the one-trial limit. <strong>We never receive or store your card, UPI, or bank
+            details</strong>; payments are handled entirely by Google Play or Razorpay.
           </p>
         </Section>
 
@@ -108,6 +109,12 @@ export default function PrivacyPage() {
               <strong>Google Play Billing (Google LLC)</strong>: Processes all subscription
               payments. Google shares a purchase token and order ID with us to confirm your
               entitlement; your payment details remain with Google.
+            </li>
+            <li>
+              <strong>Razorpay (Razorpay Software Private Limited)</strong>: Processes Premium
+              payments made on this website. We share your email address to identify the purchase
+              and receive back an order ID and payment ID; your card, UPI, and bank details are
+              handled by Razorpay and never reach our servers.
             </li>
             <li>
               <strong>Groq AI</strong>: Powers our recipe and AI recommendation features. Queries

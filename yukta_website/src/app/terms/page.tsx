@@ -95,10 +95,19 @@ export default function TermsPage() {
             {PRICING.monthlyPrice} per month.
           </p>
           <p>
-            All payments are processed by <strong>Google Play</strong>. We do not collect, process,
-            or store your card or bank details. Your subscription renews automatically each month
-            through your Google Play account until you cancel it, and cancellation is managed from
+            Premium can be bought in two ways. Inside the app, payment is processed by{" "}
+            <strong>Google Play</strong>, and your subscription renews automatically each month
+            through your Google Play account until you cancel it — cancellation is managed from
             Play Store → Account → Subscriptions.
+          </p>
+          <p>
+            On this website, payment is processed by <strong>Razorpay</strong> as a{" "}
+            <strong>one-time purchase covering 30 days</strong>. It does not renew automatically,
+            no payment method is retained, and there is nothing to cancel — access ends after 30
+            days unless you buy another month.
+          </p>
+          <p>
+            In neither case do we collect, process, or store your card, UPI, or bank details.
           </p>
           <p>
             The free trial is limited to one per account and is enforced on our servers.

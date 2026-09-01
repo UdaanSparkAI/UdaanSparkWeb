@@ -45,8 +45,9 @@ export default function RefundPage() {
               {PRICING.currencySymbol}
               {PRICING.monthlyPrice} per month
             </strong>
-            , billed through your Google Play account. The subscription renews monthly until you
-            cancel, and you may cancel at any time.
+            . You can subscribe inside the app through Google Play, where it renews monthly
+            until you cancel, or buy a single 30-day month on this website through Razorpay, which
+            does not renew.
           </p>
           <p>
             The {PRICING.trialDays}-day trial is limited to one per account. This policy explains
@@ -85,6 +86,10 @@ export default function RefundPage() {
           <p>
             Upon cancellation, your access to premium features will continue until the end of the
             current billing period. No future charges will be made.
+          </p>
+          <p>
+            One-off months bought on this website through Razorpay do not renew, so there is
+            nothing to cancel — access simply ends when the 30 days are up.
           </p>
           <p>
             Cancelling during the {PRICING.trialDays}-day free trial means you are never charged.
@@ -134,7 +139,10 @@ export default function RefundPage() {
           </p>
           <ul className="list-disc pl-5 space-y-1.5">
             <li>Your registered email address</li>
-            <li>Order ID or Google Play transaction ID</li>
+            <li>
+              Your Google Play transaction ID, or your Razorpay payment ID (it starts with{" "}
+              <code>pay_</code>) for a purchase made on this website
+            </li>
             <li>Reason for refund request</li>
           </ul>
           <p>

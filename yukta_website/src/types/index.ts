@@ -38,3 +38,30 @@ export interface WhyCard {
   title: string;
   description: string;
 }
+
+export interface CreateOrderPayload {
+  email: string;
+}
+
+export interface CreateOrderResponse {
+  orderId: string;
+  amount: number;
+  currency: string;
+  keyId: string;
+}
+
+export interface VerifyPaymentPayload {
+  email: string;
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}
+
+/**
+ * "activation_pending" means the signature checked out but the entitlement
+ * write to the app backend failed. The buyer has been charged, so this must
+ * never be presented as a plain failure.
+ */
+export type VerifyPaymentResponse =
+  | { status: "activated" }
+  | { status: "activation_pending"; paymentId: string };

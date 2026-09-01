@@ -210,5 +210,6 @@ export const FOOTER_LINKS = {
     { label: "Features", href: "#features" },
     { label: "How It Works", href: "#how-it-works" },
     { label: "FAQ", href: "#faq" },
+    { label: "Get Premium", href: "/premium" },
   ],
 };
