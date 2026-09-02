@@ -5,7 +5,7 @@ import Image from "next/image";
 import { HeroPhoneCarousel } from "@/components/ui/HeroPhoneCarousel";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { BRAND } from "@/lib/constants";
+import { BRAND, PRICING } from "@/lib/constants";
 
 const container = {
   hidden: { opacity: 0 },
@@ -116,6 +116,14 @@ export function HeroSection() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
                   <path d="M12 5v14M5 12l7 7 7-7" />
                 </svg>
+              </Button>
+
+              <Button href="/premium" size="lg" variant="outline">
+                Get Premium
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-semibold">
+                  {PRICING.currencySymbol}
+                  {PRICING.monthlyPrice}
+                </span>
               </Button>
             </motion.div>
 

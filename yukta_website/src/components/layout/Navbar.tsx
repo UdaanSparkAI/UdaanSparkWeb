@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { NAV_LINKS, BRAND } from "@/lib/constants";
+import { NAV_LINKS, BRAND, PRICING } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 
 export function Navbar() {
@@ -69,6 +69,9 @@ export function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3 shrink-0">
+              <Button href="/premium" size="sm" variant="outline">
+                Get Premium
+              </Button>
               <Button href={BRAND.playStoreUrl} size="sm" variant="primary">
                 Get the App
               </Button>
@@ -144,9 +147,18 @@ export function Navbar() {
                   </Link>
                 ))}
               </nav>
-              <div className="p-5 border-t border-border">
+              <div className="p-5 border-t border-border flex flex-col gap-3">
                 <Button href={BRAND.playStoreUrl} size="md" className="w-full justify-center">
                   Get the App
+                </Button>
+                <Button
+                  href="/premium"
+                  size="md"
+                  variant="outline"
+                  className="w-full justify-center"
+                >
+                  Get Premium — {PRICING.currencySymbol}
+                  {PRICING.monthlyPrice}
                 </Button>
               </div>
             </motion.div>
