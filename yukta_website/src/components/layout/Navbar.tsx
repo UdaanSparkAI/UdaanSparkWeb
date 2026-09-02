@@ -72,7 +72,7 @@ export function Navbar() {
               <Button href="/premium" size="sm" variant="outline">
                 Get Premium
               </Button>
-              <Button href={BRAND.playStoreUrl} size="sm" variant="primary">
+              <Button href={BRAND.playStoreUrl} size="sm" variant="primary" external>
                 Get the App
               </Button>
             </div>
@@ -148,7 +148,12 @@ export function Navbar() {
                 ))}
               </nav>
               <div className="p-5 border-t border-border flex flex-col gap-3">
-                <Button href={BRAND.playStoreUrl} size="md" className="w-full justify-center">
+                <Button
+                  href={BRAND.playStoreUrl}
+                  size="md"
+                  external
+                  className="w-full justify-center"
+                >
                   Get the App
                 </Button>
                 <Button

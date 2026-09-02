@@ -2,7 +2,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Accordion } from "@/components/ui/Accordion";
 import { GradientText } from "@/components/ui/GradientText";
 import { Button } from "@/components/ui/Button";
-import { FAQ_ITEMS, PRICING, STORE_LIST } from "@/lib/constants";
+import { BRAND, FAQ_ITEMS, PRICING, STORE_LIST } from "@/lib/constants";
 
 export function FAQSection() {
   return (
@@ -34,7 +34,7 @@ export function FAQSection() {
           <p className="text-muted text-sm mb-6">
             Download YUKTA AI and start comparing prices across {STORE_LIST} today.
           </p>
-          <Button href="#" size="lg" variant="primary">
+          <Button href={BRAND.playStoreUrl} size="lg" variant="primary" external>
             Start Your {PRICING.trialDays}-Day Free Trial
           </Button>
         </AnimatedSection>

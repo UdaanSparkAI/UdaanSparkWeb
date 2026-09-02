@@ -5,7 +5,7 @@ import { BRAND, PRICING } from "@/lib/constants";
 export const metadata: Metadata = generatePageMetadata({
   title: "Refund & Cancellation Policy",
   description:
-    "YUKTA AI's refund and cancellation policy. Understand how we handle refunds for any future premium features.",
+    "YUKTA AI's refund and cancellation policy. How we handle cancellations and refunds for YUKTA Premium, bought through Google Play or on this website.",
   path: "/refund",
 });
 

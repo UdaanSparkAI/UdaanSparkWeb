@@ -9,7 +9,8 @@ export const BRAND = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://yukta.udaansparkai.com",
   companyUrl: "https://udaansparkai.com",
   supportEmail: "support@udaansparkai.com",
-  playStoreUrl: "#", // placeholder until app is live
+  playStoreUrl:
+    "https://play.google.com/store/apps/details?id=com.udaansparkai.smartsaver",
   year: 2026,
 } as const;
 

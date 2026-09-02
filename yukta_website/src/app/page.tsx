@@ -26,6 +26,7 @@ const jsonLd = {
     description: `${PRICING.trialDays}-day free trial, then ${PRICING.currencySymbol}${PRICING.monthlyPrice} per month. Cancel anytime.`,
   },
   url: BRAND.siteUrl,
+  installUrl: BRAND.playStoreUrl,
   creator: {
     "@type": "Organization",
     name: BRAND.company,
