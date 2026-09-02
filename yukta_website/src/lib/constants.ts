@@ -1,4 +1,4 @@
-import type { FAQItem, FeatureCard, NavLink, Step, WhyCard } from "@/types";
+import type { FAQItem, FeatureCard, NavLink, PlanFeature, Step, WhyCard } from "@/types";
 
 export const BRAND = {
   name: "YUKTA AI",
@@ -213,3 +213,46 @@ export const FOOTER_LINKS = {
     { label: "Get Premium", href: "/premium" },
   ],
 };
+
+/**
+ * Free vs Premium allowances shown on /premium. Must stay in sync with the
+ * paywall screen in the Android app (SubscriptionScreen.kt).
+ */
+export const PLAN_COMPARISON: PlanFeature[] = [
+  {
+    title: "Compare stores",
+    description: `Live basket price comparison across ${STORES.length} stores`,
+    free: "3 / week",
+    premium: "Unlimited",
+  },
+  {
+    title: "One-tap cart transfer",
+    description: "Auto-add items to the store app",
+    free: "3 / week",
+    premium: "Unlimited",
+  },
+  {
+    title: "AI chatbot",
+    description: "Build a cart by chatting",
+    free: "5 / day",
+    premium: "Unlimited",
+  },
+  {
+    title: "Chef AI",
+    description: "Recipes + auto-sourced ingredients",
+    free: "3 / week",
+    premium: "Unlimited",
+  },
+  {
+    title: "Split-cart optimizer",
+    description: "Cheapest split, delivery included",
+    free: false,
+    premium: true,
+  },
+  {
+    title: "Nutrition AI",
+    description: "Health scores free · profile & diet plan",
+    free: "Scores",
+    premium: "Full",
+  },
+];

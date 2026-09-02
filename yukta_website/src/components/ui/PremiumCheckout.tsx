@@ -184,14 +184,6 @@ export function PremiumCheckout() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-      <div className="flex items-baseline justify-between bg-subtle border border-border rounded-xl px-5 py-4">
-        <span className="text-sm font-medium text-text">YUKTA Premium — 1 month</span>
-        <span className="text-2xl font-extrabold text-dark">
-          {PRICING.currencySymbol}
-          {PRICING.monthlyPrice}
-        </span>
-      </div>
-
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-text mb-1.5">
           Your {BRAND.name} account email <span className="text-red-500">*</span>
@@ -223,12 +215,17 @@ export function PremiumCheckout() {
         disabled={busy}
         whileHover={busy ? undefined : { scale: 1.02 }}
         whileTap={busy ? undefined : { scale: 0.98 }}
-        className="w-full py-4 bg-primary text-white font-semibold rounded-xl shadow-md shadow-primary/25 hover:bg-primary-dark transition-colors cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+        className="gradient-brand w-full py-4 text-white font-extrabold text-base rounded-2xl shadow-lg shadow-primary/30 cursor-pointer transition-opacity hover:opacity-95 disabled:opacity-70 disabled:cursor-not-allowed"
       >
-        {busy
-          ? status.label
-          : `Pay ${PRICING.currencySymbol}${PRICING.monthlyPrice} securely →`}
+        {busy ? status.label : `Get Premium — ${PRICING.currencySymbol}${PRICING.monthlyPrice}`}
       </motion.button>
+
+      {/* The app's paywall says "Cancel anytime" because Play Billing renews.
+          A website purchase does not renew, so it must not claim that here. */}
+      <p className="text-xs text-muted text-center">
+        {PRICING.currencySymbol}
+        {PRICING.monthlyPrice} one-time · 30 days access · No auto-renewal
+      </p>
 
       <p className="text-xs text-muted text-center">
         Payments are processed by Razorpay. {BRAND.company} never sees your card, UPI or bank

@@ -65,3 +65,12 @@ export interface VerifyPaymentPayload {
 export type VerifyPaymentResponse =
   | { status: "activated" }
   | { status: "activation_pending"; paymentId: string };
+
+export interface PlanFeature {
+  title: string;
+  description: string;
+  /** Free-plan allowance, or `false` to render a "not included" lock. */
+  free: string | false;
+  /** Premium allowance, or `true` to render an "included" tick. */
+  premium: string | true;
+}

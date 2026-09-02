@@ -1,64 +1,155 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { generatePageMetadata } from "@/lib/metadata";
 import { PremiumCheckout } from "@/components/ui/PremiumCheckout";
-import { BRAND, PRICING, STORE_LIST } from "@/lib/constants";
+import { BRAND, PLAN_COMPARISON, PRICING, STORE_LIST } from "@/lib/constants";
+
+const PRICE = `${PRICING.currencySymbol}${PRICING.monthlyPrice}`;
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Get Premium",
-  description: `Buy one month of YUKTA Premium for ${PRICING.currencySymbol}${PRICING.monthlyPrice}. Unlock live price comparison across ${STORE_LIST}, the AI shopping assistant, Chef AI and Nutrition AI.`,
+  description: `Unlock YUKTA Premium for ${PRICE}. Unlimited price comparison across ${STORE_LIST}, the AI shopping assistant, Chef AI and Nutrition AI.`,
   path: "/premium",
 });
 
-const INCLUDED = [
-  `Live price comparison across ${STORE_LIST}`,
-  "AI shopping assistant that builds your basket",
-  "Chef AI — recipes with ingredients sourced at the lowest price",
-  "Nutrition AI — health scores and diet tracking",
-  "One-tap cart transfer into the store's own app",
-];
+function LockIcon() {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="inline-block"
+    >
+      <rect x="4" y="10.5" width="16" height="10" rx="2.5" />
+      <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="inline-block"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
 
 export default function PremiumPage() {
   return (
-    <div className="max-w-2xl mx-auto px-4 md:px-6 py-16">
-      <div className="mb-10">
-        <p className="text-accent font-semibold text-sm uppercase tracking-widest mb-2">
-          YUKTA Premium
+    <div className="max-w-2xl mx-auto px-4 md:px-6 py-14 md:py-16">
+      <header className="text-center mb-8">
+        <Image
+          src="/yukta-icon.png"
+          alt=""
+          width={84}
+          height={84}
+          priority
+          className="mx-auto rounded-[22px] shadow-card mb-5"
+        />
+        <h1 className="text-3xl md:text-4xl font-extrabold text-dark mb-2">Choose your plan</h1>
+        <p className="text-muted">
+          Start free, or unlock everything for{" "}
+          <strong className="text-text font-semibold">{PRICE}</strong>.
         </p>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-dark mb-3">
-          Unlock the full app for {PRICING.currencySymbol}
-          {PRICING.monthlyPrice}
-        </h1>
-        <p className="text-muted leading-relaxed">
-          One month of {BRAND.name} Premium, paid securely through Razorpay. Already using the
-          app? Pay with the same email and your account switches over.
-        </p>
-      </div>
+      </header>
 
-      <div className="bg-white border border-border rounded-2xl p-5 mb-8 shadow-card">
-        <h2 className="text-sm font-semibold text-dark mb-3">What you get</h2>
-        <ul className="text-sm text-muted space-y-1.5">
-          {INCLUDED.map((item) => (
-            <li key={item}>
-              <span className="text-primary mr-2" aria-hidden>
-                ✓
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
+      <div className="bg-white border border-border rounded-3xl shadow-card overflow-hidden mb-7">
+        <table className="w-full border-collapse text-sm">
+          <caption className="sr-only">
+            The free plan compared with YUKTA Premium, feature by feature
+          </caption>
+          <thead>
+            <tr className="align-bottom">
+              <th scope="col" className="p-4 md:p-5">
+                <span className="sr-only">Feature</span>
+              </th>
+              <th scope="col" className="p-4 md:p-5 pb-4 w-[22%] text-center">
+                <span className="block text-muted font-bold text-base">Free</span>
+              </th>
+              <th scope="col" className="p-4 md:p-5 pb-4 w-[28%] text-center">
+                <span className="inline-block mb-1.5 text-[10px] leading-none uppercase tracking-wider font-extrabold text-white bg-primary px-2.5 py-1.5 rounded-full whitespace-nowrap">
+                  Best value
+                </span>
+                <span className="block text-dark font-extrabold text-base">Premium</span>
+                <span className="block text-primary font-bold text-sm">{PRICE}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {PLAN_COMPARISON.map((feature) => (
+              <tr key={feature.title} className="border-t border-border">
+                <th scope="row" className="text-left font-normal p-4 md:p-5 align-middle">
+                  <span className="block font-bold text-dark leading-snug">{feature.title}</span>
+                  <span className="block text-muted text-xs mt-0.5 leading-snug">
+                    {feature.description}
+                  </span>
+                </th>
+
+                <td className="p-3 md:p-4 text-center align-middle text-muted font-medium">
+                  {feature.free === false ? (
+                    <>
+                      <LockIcon />
+                      <span className="sr-only">Not included</span>
+                    </>
+                  ) : (
+                    feature.free
+                  )}
+                </td>
+
+                <td className="p-3 md:p-4 text-center align-middle">
+                  <span className="inline-flex items-center justify-center w-full min-h-9 px-2 py-2 rounded-xl bg-subtle text-accent-dark font-bold text-[13px] leading-tight">
+                    {feature.premium === true ? (
+                      <>
+                        <CheckIcon />
+                        <span className="sr-only">Included</span>
+                      </>
+                    ) : (
+                      feature.premium
+                    )}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <PremiumCheckout />
 
-      <div className="mt-8 text-xs text-muted leading-relaxed space-y-2">
+      <Link
+        href="/"
+        className="mt-3 w-full inline-flex items-center justify-center py-4 rounded-xl border border-border text-text font-semibold text-sm hover:bg-subtle transition-colors"
+      >
+        Continue with the free plan
+      </Link>
+
+      <div className="mt-8 text-xs text-muted leading-relaxed space-y-2 text-center">
         <p>
-          <strong className="text-text">This is a one-time payment for 30 days.</strong> It does
-          not renew automatically and nothing is stored to charge you again — come back and buy
-          another month whenever you like.
+          Buying here is a <strong className="text-text">one-time payment for 30 days</strong>. It
+          does not renew automatically and no payment method is stored — come back and buy another
+          month whenever you like. You can also subscribe from inside the app through Google Play,
+          where it does renew monthly.
         </p>
         <p>
-          Prefer to pay through Google Play instead? You can subscribe from inside the app. See our{" "}
+          See our{" "}
           <Link href="/refund" className="text-primary hover:underline">
             Refund &amp; Cancellation Policy
           </Link>{" "}
@@ -66,6 +157,10 @@ export default function PremiumPage() {
           <Link href="/terms" className="text-primary hover:underline">
             Terms &amp; Conditions
           </Link>
+          . Questions? Email{" "}
+          <a href={`mailto:${BRAND.supportEmail}`} className="text-primary hover:underline">
+            {BRAND.supportEmail}
+          </a>
           .
         </p>
       </div>

@@ -66,6 +66,11 @@ h6 {
   background-clip: text;
 }
 
+/* Brand gradient fill — same ramp as .gradient-text, for buttons and panels */
+.gradient-brand {
+  background: linear-gradient(135deg, #14532d 0%, #16a34a 60%, #22c55e 100%);
+}
+
 /* Glass card utility */
 .glass-card {
   background: rgba(255, 255, 255, 0.7);
