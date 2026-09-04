@@ -36,13 +36,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   robots: { index: true, follow: true },
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/yukta-icon.png", type: "image/png" },
-    ],
-    apple: "/yukta-icon.png",
-  },
+  // Icons come from the app/ file conventions — favicon.ico, icon.png and
+  // apple-icon.png — so Next emits the correct <link> tags with real sizes.
+  // Declaring `icons` here would override them, which is how the default
+  // create-next-app favicon stayed pinned to the tab.
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
