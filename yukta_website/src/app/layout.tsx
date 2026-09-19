@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   robots: { index: true, follow: true },
+  // Google Search Console site verification. Public by design — it only proves
+  // domain ownership, so it belongs in the source rather than an env var.
+  verification: {
+    google: "S90xm-Fq1OV9-eQa6nkUJdoTX4JT2dlUacYbA5uMHys",
+  },
   // Icons come from the app/ file conventions — favicon.ico, icon.png and
   // apple-icon.png — so Next emits the correct <link> tags with real sizes.
   // Declaring `icons` here would override them, which is how the default
