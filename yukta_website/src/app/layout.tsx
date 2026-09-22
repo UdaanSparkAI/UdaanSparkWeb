@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BRAND, STORE_LIST } from "@/lib/constants";
 import "./globals.css";
+
+/** Google Tag Manager container. Google Analytics is configured as a tag inside it. */
+const GTM_ID = "GTM-PR5DBK7J";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -53,7 +57,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${inter.variable} ${plusJakartaSans.variable}`}
     >
+      <GoogleTagManager gtmId={GTM_ID} />
       <body className="min-h-screen flex flex-col antialiased">
+        {/* Fallback for browsers with JavaScript disabled. <GoogleTagManager />
+            emits only the script tags, so this iframe has to be added by hand. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
         <Navbar />
         <main className="flex-1 pt-20">{children}</main>
         <Footer />

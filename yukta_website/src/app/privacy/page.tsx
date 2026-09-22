@@ -56,9 +56,16 @@ export default function PrivacyPage() {
             permanently on our servers.
           </p>
           <p>
-            <strong>Usage Data</strong>: We collect anonymised analytics such as screens viewed,
-            features used, and search queries (without personally identifiable details) to improve
-            the product.
+            <strong>Usage Data (app)</strong>: We collect anonymised analytics such as screens
+            viewed, features used, and search queries (without personally identifiable details) to
+            improve the product.
+          </p>
+          <p>
+            <strong>Usage Data (website)</strong>: This website uses Google Analytics, loaded via
+            Google Tag Manager, to understand how visitors find and use our pages. This records
+            information such as the pages you view, how long you stay, your approximate location
+            (derived from your IP address), your referring site, and your browser and device type.
+            We use it only in aggregate and never attempt to identify individual visitors from it.
           </p>
           <p>
             <strong>Device Information</strong>: We may collect device model, operating system
@@ -115,6 +122,13 @@ export default function PrivacyPage() {
               payments made on this website. We share your email address to identify the purchase
               and receive back an order ID and payment ID; your card, UPI, and bank details are
               handled by Razorpay and never reach our servers.
+            </li>
+            <li>
+              <strong>Google Analytics &amp; Google Tag Manager (Google LLC)</strong>: Measures
+              website traffic. These services set cookies in your browser and send your IP address,
+              the pages you visit, and your device and browser details to Google, which may process
+              and store this data outside India. They run on this website only — not inside the
+              YUKTA AI app.
             </li>
             <li>
               <strong>Groq AI</strong>: Powers our recipe and AI recommendation features. Queries
@@ -182,9 +196,20 @@ export default function PrivacyPage() {
 
         <Section title="9. Cookies and Local Storage">
           <p>
-            Our website uses minimal cookies for session management and analytics. You can
-            configure your browser to reject cookies, though some features may not work as expected.
-            The YUKTA AI Android app uses local device storage to cache preferences and session
+            Our website uses minimal cookies for session management, plus Google Analytics
+            cookies (such as <code>_ga</code>) that distinguish one visitor from another and expire
+            after up to two years. You can configure your browser to reject cookies, though some
+            features may not work as expected, and you can opt out of Google Analytics entirely
+            using{" "}
+            <a
+              href="https://tools.google.com/dlpage/gaoptout"
+              className="text-primary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google&apos;s opt-out browser add-on
+            </a>
+            . The YUKTA AI Android app uses local device storage to cache preferences and session
             tokens.
           </p>
         </Section>
