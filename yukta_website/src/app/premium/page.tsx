@@ -143,10 +143,11 @@ export default function PremiumPage() {
 
       <div className="mt-8 text-xs text-muted leading-relaxed space-y-2 text-center">
         <p>
-          Buying here is a <strong className="text-text">one-time payment for 30 days</strong>. It
-          does not renew automatically and no payment method is stored — come back and buy another
-          month whenever you like. You can also subscribe from inside the app through Google Play,
-          where it does renew monthly.
+          This is a <strong className="text-text">monthly subscription</strong>. After you approve
+          the mandate, {PRICING.currencySymbol}
+          {PRICING.monthlyPrice} is charged automatically every month until you cancel, which you
+          can do at any time from inside the app. You can also subscribe through Google Play from
+          the app itself.
         </p>
         <p>
           See our{" "}

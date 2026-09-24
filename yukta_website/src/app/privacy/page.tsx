@@ -25,7 +25,7 @@ export default function PrivacyPage() {
         <p className="text-accent font-semibold text-sm uppercase tracking-widest mb-2">Legal</p>
         <h1 className="text-3xl md:text-4xl font-extrabold text-dark mb-3">Privacy Policy</h1>
         <p className="text-muted text-sm">
-          Last updated: <time dateTime="2026-08-03">3 August 2026</time>
+          Last updated: <time dateTime="2026-09-24">24 September 2026</time>
         </p>
       </div>
 
@@ -75,8 +75,8 @@ export default function PrivacyPage() {
             <strong>Subscription Information</strong>: When you start a free trial or purchase
             YUKTA Premium, we store your entitlement status — the plan, its expiry date, whether
             the trial has been used, and the payment reference from the provider (a Google Play
-            purchase token and order ID, or a Razorpay order and payment ID for purchases made on
-            our website) — linked to your account. This is required to grant access and to enforce
+            purchase token and order ID, or a Razorpay subscription and payment ID for
+            subscriptions started on our website) — linked to your account. This is required to grant access and to enforce
             the one-trial limit. <strong>We never receive or store your card, UPI, or bank
             details</strong>; payments are handled entirely by Google Play or Razorpay.
           </p>
@@ -119,8 +119,8 @@ export default function PrivacyPage() {
             </li>
             <li>
               <strong>Razorpay (Razorpay Software Private Limited)</strong>: Processes Premium
-              payments made on this website. We share your email address to identify the purchase
-              and receive back an order ID and payment ID; your card, UPI, and bank details are
+              subscriptions started on this website. We share your email address to identify the
+              subscriber and receive back a subscription ID and payment ID; your card, UPI, and bank details are
               handled by Razorpay and never reach our servers.
             </li>
             <li>

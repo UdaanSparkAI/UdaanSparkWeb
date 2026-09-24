@@ -1,11 +1,17 @@
 import type {
   ContactPayload,
-  CreateOrderPayload,
-  CreateOrderResponse,
+  CreateSubscriptionPayload,
+  CreateSubscriptionResponse,
   DeleteAccountPayload,
-  VerifyPaymentPayload,
-  VerifyPaymentResponse,
 } from "@/types";
+
+/**
+ * The YUKTA AI app backend. Subscriptions are created there rather than in a
+ * route handler here, because that is also where the Razorpay webhook lands and
+ * where entitlement is recorded — keeping both on one server means there is a
+ * single owner of a subscription's lifecycle.
+ */
+const APP_API_BASE = "https://api.udaansparkai.com";
 
 async function post<T>(path: string, body: T): Promise<{ success: boolean; error?: string }> {
   const res = await fetch(path, {
@@ -42,7 +48,13 @@ async function postFor<TResult>(
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
-    return { ok: false, error: data.error ?? "Something went wrong. Please try again." };
+    // `error` is what this site's own routes return; `detail` is FastAPI's
+    // default shape, which is what the app backend sends.
+    const message = typeof data.error === "string" ? data.error : data.detail;
+    return {
+      ok: false,
+      error: typeof message === "string" ? message : "Something went wrong. Please try again.",
+    };
   }
 
   return { ok: true, data: data as TResult };
@@ -51,8 +63,9 @@ async function postFor<TResult>(
 export const api = {
   contact: (payload: ContactPayload) => post("/api/contact", payload),
   deleteAccount: (payload: DeleteAccountPayload) => post("/api/delete-account", payload),
-  createOrder: (payload: CreateOrderPayload) =>
-    postFor<CreateOrderResponse>("/api/payments/create-order", payload),
-  verifyPayment: (payload: VerifyPaymentPayload) =>
-    postFor<VerifyPaymentResponse>("/api/payments/verify", payload),
+  createSubscription: (payload: CreateSubscriptionPayload) =>
+    postFor<CreateSubscriptionResponse>(
+      `${APP_API_BASE}/subscriptions/razorpay/create-subscription`,
+      payload
+    ),
 };

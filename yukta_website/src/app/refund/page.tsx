@@ -27,7 +27,7 @@ export default function RefundPage() {
           Refund & Cancellation Policy
         </h1>
         <p className="text-muted text-sm">
-          Last updated: <time dateTime="2026-08-03">3 August 2026</time>
+          Last updated: <time dateTime="2026-09-24">24 September 2026</time>
         </p>
       </div>
 
@@ -45,9 +45,8 @@ export default function RefundPage() {
               {PRICING.currencySymbol}
               {PRICING.monthlyPrice} per month
             </strong>
-            . You can subscribe inside the app through Google Play, where it renews monthly
-            until you cancel, or buy a single 30-day month on this website through Razorpay, which
-            does not renew.
+            . You can subscribe inside the app through Google Play or on this website through
+            Razorpay. Either way it renews monthly until you cancel.
           </p>
           <p>
             The {PRICING.trialDays}-day trial is limited to one per account. This policy explains
@@ -88,8 +87,10 @@ export default function RefundPage() {
             current billing period. No future charges will be made.
           </p>
           <p>
-            One-off months bought on this website through Razorpay do not renew, so there is
-            nothing to cancel — access simply ends when the 30 days are up.
+            Subscriptions bought on this website through Razorpay are cancelled from inside the
+            YUKTA AI app, under your account settings. Cancelling stops all future charges and
+            releases the payment mandate; access continues until the end of the month you have
+            already paid for.
           </p>
           <p>
             Cancelling during the {PRICING.trialDays}-day free trial means you are never charged.

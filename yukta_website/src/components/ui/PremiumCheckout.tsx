@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { api } from "@/lib/api";
 import { BRAND, PRICING } from "@/lib/constants";
-import type { RazorpaySuccessResponse } from "@/types/razorpay";
 
 const CHECKOUT_SCRIPT_SRC = "https://checkout.razorpay.com/v1/checkout.js";
 
@@ -39,8 +38,7 @@ function loadCheckoutScript(): Promise<void> {
 type Status =
   | { kind: "idle" }
   | { kind: "working"; label: string }
-  | { kind: "activated" }
-  | { kind: "pending"; paymentId: string }
+  | { kind: "submitted" }
   | { kind: "error"; message: string };
 
 export function PremiumCheckout() {
@@ -48,23 +46,6 @@ export function PremiumCheckout() {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   const busy = status.kind === "working";
-
-  async function confirmPayment(response: RazorpaySuccessResponse, buyerEmail: string) {
-    setStatus({ kind: "working", label: "Confirming your payment…" });
-
-    const result = await api.verifyPayment({ email: buyerEmail, ...response });
-
-    if (!result.ok) {
-      setStatus({ kind: "error", message: result.error });
-      return;
-    }
-
-    setStatus(
-      result.data.status === "activated"
-        ? { kind: "activated" }
-        : { kind: "pending", paymentId: result.data.paymentId }
-    );
-  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -77,9 +58,9 @@ export function PremiumCheckout() {
 
     setStatus({ kind: "working", label: "Starting secure checkout…" });
 
-    const order = await api.createOrder({ email: buyerEmail });
-    if (!order.ok) {
-      setStatus({ kind: "error", message: order.error });
+    const subscription = await api.createSubscription({ email: buyerEmail });
+    if (!subscription.ok) {
+      setStatus({ kind: "error", message: subscription.error });
       return;
     }
 
@@ -99,12 +80,10 @@ export function PremiumCheckout() {
     let settled = false;
 
     const checkout = new window.Razorpay({
-      key: order.data.keyId,
-      amount: order.data.amount,
-      currency: order.data.currency,
-      order_id: order.data.orderId,
+      key: subscription.data.key_id,
+      subscription_id: subscription.data.subscription_id,
       name: BRAND.name,
-      description: "YUKTA Premium — 1 month",
+      description: `YUKTA Premium — ${PRICING.currencySymbol}${PRICING.monthlyPrice}/month`,
       image: "/yukta-icon.png",
       prefill: { email: buyerEmail },
       theme: { color: "#16a34a" },
@@ -116,9 +95,13 @@ export function PremiumCheckout() {
           }
         },
       },
-      handler: (response) => {
+      // Razorpay calls this once the mandate is approved and the first payment
+      // goes through. It is NOT proof of activation — the browser could be
+      // closed or spoofed — so it only reports progress. Premium is granted by
+      // the backend when Razorpay's webhook arrives a few seconds later.
+      handler: () => {
         settled = true;
-        void confirmPayment(response, buyerEmail);
+        setStatus({ kind: "submitted" });
       },
     });
 
@@ -136,47 +119,29 @@ export function PremiumCheckout() {
     checkout.open();
   }
 
-  if (status.kind === "activated") {
+  if (status.kind === "submitted") {
     return (
       <div className="bg-subtle border border-border rounded-2xl p-8 text-center">
         <div className="text-4xl mb-3" aria-hidden>
           ✅
         </div>
-        <h2 className="text-xl font-bold text-dark mb-2">You&apos;re Premium</h2>
+        <h2 className="text-xl font-bold text-dark mb-2">Payment received</h2>
         <p className="text-muted text-sm leading-relaxed">
-          Payment received and your account is active. Open the {BRAND.name} app and sign in with{" "}
-          <strong className="text-text">{email.trim()}</strong> to use your Premium features.
+          We&apos;re activating your subscription now — it usually takes a few seconds. Open the{" "}
+          {BRAND.name} app and sign in with <strong className="text-text">{email.trim()}</strong>{" "}
+          to start using Premium.
         </p>
-      </div>
-    );
-  }
-
-  if (status.kind === "pending") {
-    return (
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-8 text-center">
-        <div className="text-4xl mb-3" aria-hidden>
-          ⏳
-        </div>
-        <h2 className="text-xl font-bold text-amber-900 mb-2">Payment received — activating</h2>
-        <p className="text-amber-800 text-sm leading-relaxed">
-          Your payment went through. Activation is still being confirmed with our servers and
-          normally finishes within a minute — reopen the {BRAND.name} app shortly and you&apos;ll
-          be Premium. You will not be charged again.
-        </p>
-        <p className="text-amber-800 text-sm mt-3">
-          Still not active after a few minutes? Quote this payment ID:
-          <br />
-          <code className="inline-block mt-1 px-2 py-1 bg-white/70 rounded font-mono text-xs text-amber-900">
-            {status.paymentId}
-          </code>
+        <p className="text-muted text-sm leading-relaxed mt-3">
+          Your subscription renews automatically at {PRICING.currencySymbol}
+          {PRICING.monthlyPrice} each month. You can cancel it any time from the app.
         </p>
         <a
           href={`mailto:${BRAND.supportEmail}?subject=${encodeURIComponent(
-            `Premium activation pending — ${status.paymentId}`
+            "Premium activation"
           )}`}
           className="inline-block mt-4 text-sm text-primary font-semibold hover:underline"
         >
-          Email {BRAND.supportEmail}
+          Not active after a few minutes? Email {BRAND.supportEmail}
         </a>
       </div>
     );
@@ -217,14 +182,14 @@ export function PremiumCheckout() {
         whileTap={busy ? undefined : { scale: 0.98 }}
         className="gradient-brand w-full py-4 text-white font-extrabold text-base rounded-2xl shadow-lg shadow-primary/30 cursor-pointer transition-opacity hover:opacity-95 disabled:opacity-70 disabled:cursor-not-allowed"
       >
-        {busy ? status.label : `Get Premium — ${PRICING.currencySymbol}${PRICING.monthlyPrice}`}
+        {busy
+          ? status.label
+          : `Subscribe — ${PRICING.currencySymbol}${PRICING.monthlyPrice}/month`}
       </motion.button>
 
-      {/* The app's paywall says "Cancel anytime" because Play Billing renews.
-          A website purchase does not renew, so it must not claim that here. */}
       <p className="text-xs text-muted text-center">
         {PRICING.currencySymbol}
-        {PRICING.monthlyPrice} one-time · 30 days access · No auto-renewal
+        {PRICING.monthlyPrice}/month · Renews automatically · Cancel any time in the app
       </p>
 
       <p className="text-xs text-muted text-center">

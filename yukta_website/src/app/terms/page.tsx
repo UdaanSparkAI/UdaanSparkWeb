@@ -25,7 +25,7 @@ export default function TermsPage() {
         <p className="text-accent font-semibold text-sm uppercase tracking-widest mb-2">Legal</p>
         <h1 className="text-3xl md:text-4xl font-extrabold text-dark mb-3">Terms & Conditions</h1>
         <p className="text-muted text-sm">
-          Last updated: <time dateTime="2026-08-03">3 August 2026</time>
+          Last updated: <time dateTime="2026-09-24">24 September 2026</time>
         </p>
       </div>
 
@@ -102,9 +102,11 @@ export default function TermsPage() {
           </p>
           <p>
             On this website, payment is processed by <strong>Razorpay</strong> as a{" "}
-            <strong>one-time purchase covering 30 days</strong>. It does not renew automatically,
-            no payment method is retained, and there is nothing to cancel — access ends after 30
-            days unless you buy another month.
+            <strong>recurring monthly subscription</strong>. You authorise a mandate (UPI Autopay
+            or a card e-mandate) and {PRICING.currencySymbol}
+            {PRICING.monthlyPrice} is charged automatically each month until you cancel. You can
+            cancel at any time from inside the YUKTA AI app, and your access continues until the
+            end of the month you have already paid for.
           </p>
           <p>
             In neither case do we collect, process, or store your card, UPI, or bank details.
